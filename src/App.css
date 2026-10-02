@@ -1,38 +1,53 @@
-.App {
-  text-align: center;
-}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; background: #0f0f14; color: #fff; }
+a { color: inherit; }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+.loading { padding: 2rem; }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Login */
+.login { min-height: 100vh; display: grid; place-items: center; }
+.login__form {
+  display: grid; gap: 1rem; width: min(90vw, 320px);
+  padding: 2rem; background: #1a1a22; border-radius: 12px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.login__form label { display: grid; gap: .35rem; font-size: .9rem; color: #aaa; }
+.login__form input {
+  padding: .6rem .75rem; border-radius: 6px; border: 1px solid #333;
+  background: #0f0f14; color: #fff; font-size: 1rem;
 }
-
-.App-link {
-  color: #61dafb;
+.login__form button {
+  margin-top: .5rem; padding: .7rem; border: 0; border-radius: 6px;
+  background: #fff; color: #000; font-weight: 600; cursor: pointer;
 }
+.login__error { color: #ff6b6b; font-size: .9rem; margin: 0; }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Layout */
+.layout { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
+.layout__sidebar {
+  background: #16161d; padding: 1.5rem; display: flex; flex-direction: column;
+}
+.layout__sidebar nav { display: grid; gap: .5rem; margin: 2rem 0; }
+.layout__sidebar nav a {
+  padding: .5rem .75rem; border-radius: 6px; text-decoration: none; color: #ccc;
+}
+.layout__sidebar nav a.active { background: #2a2a35; color: #fff; }
+.layout__user { margin-top: auto; font-size: .85rem; color: #999; }
+.layout__role { color: #6ee7a0; margin: .25rem 0 1rem; }
+.layout__user button {
+  width: 100%; padding: .5rem; border: 1px solid #333; border-radius: 6px;
+  background: transparent; color: #ccc; cursor: pointer;
+}
+.layout__content { padding: 2.5rem; }
+
+/* Planning */
+.planning { list-style: none; padding: 0; display: grid; gap: .5rem; margin-bottom: 2rem; }
+.planning li { padding: .75rem 1rem; background: #1a1a22; border-radius: 6px; }
+.planning__form { display: flex; gap: .5rem; flex-wrap: wrap; }
+.planning__form input {
+  padding: .5rem .75rem; border-radius: 6px; border: 1px solid #333;
+  background: #0f0f14; color: #fff;
+}
+.planning__form button {
+  padding: .5rem 1rem; border: 0; border-radius: 6px;
+  background: #fff; color: #000; font-weight: 600; cursor: pointer;
 }
