@@ -21,6 +21,37 @@ a { color: inherit; }
 }
 .login__error { color: #ff6b6b; font-size: .9rem; margin: 0; }
 
+/* Stats */
+.stats__period { color: #999; margin-bottom: 2rem; }
+
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+.stats__card {
+  background: #1a1a22; border-radius: 10px; padding: 1.25rem;
+  display: flex; flex-direction: column; gap: .4rem;
+}
+.stats__label { font-size: .8rem; color: #999; text-transform: uppercase; letter-spacing: .05em; }
+.stats__value { font-size: 1.8rem; font-weight: 700; }
+
+.stats__tables {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.5rem;
+}
+.stats__table { background: #1a1a22; border-radius: 10px; padding: 1.25rem; }
+.stats__table h2 { font-size: 1rem; margin: 0 0 1rem; }
+.stats__table ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .5rem; }
+.stats__table li {
+  display: flex; justify-content: space-between; gap: 1rem;
+  font-size: .9rem; color: #ccc; border-bottom: 1px solid #27272f; padding-bottom: .4rem;
+}
+.stats__table li strong { color: #fff; flex-shrink: 0; }
+.stats__error { color: #ff6b6b; }
+
 /* Layout */
 .layout { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
 .layout__sidebar {
