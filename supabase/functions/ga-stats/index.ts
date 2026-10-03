@@ -93,6 +93,22 @@ async function runReport(accessToken: string, body: Record<string, unknown>) {
   return res.json();
 }
 
+// Utilisateurs actifs en ce moment (dernières minutes), via l'API temps réel de GA4
+async function runRealtimeReport(accessToken: string, body: Record<string, unknown>) {
+  const res = await fetch(
+    `https://analyticsdata.googleapis.com/v1beta/properties/${PROPERTY_ID}:runRealtimeReport`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }
+  );
+  return res.json();
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -156,8 +172,53 @@ Deno.serve(async (req) => {
       },
     });
 
+    const realtime = await runRealtimeReport(accessToken, {
+      metrics: [{ name: "activeUsers" }],
+    });
+
+    // Clics par article de merch (nécessite la dimension personnalisée "item_name" dans GA4)
+    const merchClicks = await runReport(accessToken, {
+      dateRanges,
+      dimensions: [{ name: "eventName" }, { name: "customEvent:item_name" }],
+      metrics: [{ name: "eventCount" }, { name: "activeUsers" }],
+      dimensionFilter: {
+        filter: {
+          fieldName: "eventName",
+          inListFilter: { values: ["select_merch_item", "click_acheter"] },
+        },
+      },
+      orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
+    });
+
+    // Trafic jour par jour sur les 30 derniers jours
+    const trafficByDay = await runReport(accessToken, {
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dimensions: [{ name: "date" }],
+      metrics: [{ name: "activeUsers" }, { name: "sessions" }],
+      orderBys: [{ dimension: { dimensionName: "date" } }],
+    });
+
+    // Trafic mois par mois sur les 12 derniers mois
+    const trafficByMonth = await runReport(accessToken, {
+      dateRanges: [{ startDate: "365daysAgo", endDate: "today" }],
+      dimensions: [{ name: "yearMonth" }],
+      metrics: [{ name: "activeUsers" }, { name: "sessions" }],
+      orderBys: [{ dimension: { dimensionName: "yearMonth" } }],
+    });
+
     return new Response(
-      JSON.stringify({ overview, geo, languages, sources, pages, scroll }),
+      JSON.stringify({
+        overview,
+        geo,
+        languages,
+        sources,
+        pages,
+        scroll,
+        realtime,
+        merchClicks,
+        trafficByDay,
+        trafficByMonth,
+      }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (err) {
