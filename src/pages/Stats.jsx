@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { supabase } from "../lib/supabaseClient";
+import RecentDevices from "../components/RecentDevices"
 
 // GA4 renvoie les dates au format "20260315" (AAAAMMJJ)
 const formatDayLabel = (value) => `${value.slice(6, 8)}/${value.slice(4, 6)}`;
@@ -167,7 +168,7 @@ export default function Stats() {
           </ResponsiveContainer>
         </div>
       </div>
-
+<RecentDevices />
       <div className="stats__tables">
         <div className="stats__table">
           <h2>Pages les plus visitées</h2>
