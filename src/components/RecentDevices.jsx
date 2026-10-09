@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+// ⚠️ Adapte cet import au chemin de ton client Supabase dans lightboard
+// (le même que celui utilisé par Stats.jsx pour appeler ga-stats).
+import { supabase } from "../lib/supabase";
 
 const DEVICE_LABELS = { mobile: "Mobile", desktop: "Ordinateur", tablet: "Tablette" };
 
@@ -61,8 +63,6 @@ export default function RecentDevices() {
                   <tr>
                     <th style={head}>Il y a</th>
                     <th style={head}>Appareil</th>
-                    <th style={head}>Système</th>
-                    <th style={head}>Navigateur</th>
                     <th style={head}>Lieu</th>
                   </tr>
                 </thead>
@@ -71,8 +71,6 @@ export default function RecentDevices() {
                     <tr key={i}>
                       <td style={cell}>{r.minutesAgo === 0 ? "à l'instant" : `${r.minutesAgo} min`}</td>
                       <td style={cell}>{DEVICE_LABELS[r.device] || r.device || "—"}</td>
-                      <td style={cell}>{r.os || "—"}</td>
-                      <td style={cell}>{r.browser || "—"}</td>
                       <td style={cell}>{place(r)}</td>
                     </tr>
                   ))}

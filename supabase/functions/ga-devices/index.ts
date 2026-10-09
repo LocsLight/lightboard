@@ -112,8 +112,6 @@ Deno.serve(async (req) => {
         dimensions: [
           { name: "minutesAgo" },
           { name: "deviceCategory" },
-          { name: "operatingSystem" },
-          { name: "browser" },
           { name: "country" },
           { name: "city" },
         ],
@@ -142,10 +140,8 @@ Deno.serve(async (req) => {
       return {
         minutesAgo: Number(d[0]),
         device: clean(d[1]),
-        os: clean(d[2]),
-        browser: clean(d[3]),
-        country: clean(d[4]),
-        city: clean(d[5]),
+        country: clean(d[2]),
+        city: clean(d[3]),
         users: Number(r.metricValues[0].value),
       };
     });
