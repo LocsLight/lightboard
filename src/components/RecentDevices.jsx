@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 // ⚠️ Adapte cet import au chemin de ton client Supabase dans lightboard
 // (le même que celui utilisé par Stats.jsx pour appeler ga-stats).
-import { supabase } from "../lib/supabase";
+import { supabase } from "../lib/supabaseClient";
 
 const DEVICE_LABELS = { mobile: "Mobile", desktop: "Ordinateur", tablet: "Tablette" };
 
